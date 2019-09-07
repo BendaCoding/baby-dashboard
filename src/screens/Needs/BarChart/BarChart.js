@@ -1,8 +1,8 @@
-import React, { useRef, useEffect } from 'react';
-import * as d3 from 'd3';
-import { useTheme } from '@@hooks';
+import React, { useRef, useEffect } from "react";
+import * as d3 from "d3";
+import { useTheme } from "@@hooks";
 
-const FONT = '14px Lato';
+const FONT = "14px Lato";
 
 export const BarChart = ({ className, id, needs }) => {
   const theme = useTheme();
@@ -31,33 +31,33 @@ export const BarChart = ({ className, id, needs }) => {
     .interpolate(d3.interpolateHcl);
 
   const drawGraph = () => {
-    console.log('draw Graph');
+    console.log("draw Graph");
 
     const svg = d3
-      .select('#bar-chart')
-      .attr('width', width + margin.left + margin.right)
-      .attr('height', height + margin.top + margin.bottom)
-      .append('g')
-      .attr('transform', `translate(${margin.left}, ${margin.top})`)
-      .attr('id', 'main');
+      .select("#bar-chart")
+      .attr("width", width + margin.left + margin.right)
+      .attr("height", height + margin.top + margin.bottom)
+      .append("g")
+      .attr("transform", `translate(${margin.left}, ${margin.top})`)
+      .attr("id", "main");
 
     // X axis
 
     svg
-      .append('g')
-      .attr('transform', 'translate(0,' + height + ')')
+      .append("g")
+      .attr("transform", "translate(0," + height + ")")
       .call(d3.axisBottom(x))
-      .selectAll('text')
-      .attr('transform', 'translate(-10, 5)rotate(-45)')
-      .style('text-anchor', 'end')
-      .style('font', FONT);
+      .selectAll("text")
+      .attr("transform", "translate(-10, 5)rotate(-45)")
+      .style("text-anchor", "end")
+      .style("font", FONT);
 
     // Add Y axis
 
     svg
-      .append('g')
+      .append("g")
       .call(d3.axisLeft(y))
-      .style('font', FONT);
+      .style("font", FONT);
   };
 
   useEffect(() => {
@@ -68,25 +68,54 @@ export const BarChart = ({ className, id, needs }) => {
       isInitialMount.current = false;
       drawGraph();
     }
-    console.log('update graph');
+    console.log("update graph");
     console.log(needs);
 
     // Bars
-    const bars = d3.select('#bar-chart #main').selectAll('rect')..data(needs, d => d.label);
-    
-    bars.enter()
-      .append('rect')
-      .attr('x', d => x(d.label))
-      .attr('width', x.bandwidth())
-      .attr('fill', d => colors(d.value))
+    const bars = d3
+      .select("#bar-chart #main")
+      .selectAll("rect")
+      .data(needs, d => d.label);
+
+    // UPDATE old elements present in new data.
+    bars
+      .transition()
+      .duration(400)
+      .attr("y", d => y(d.value))
+      .attr("height", d => height - y(d.value))
+      .delay((d, i) => i * 100);
+
+    // ENTER new elements present in new data.
+    bars
+      .enter()
+      .append("rect")
+      .attr("x", d => x(d.label))
+      .attr("width", x.bandwidth())
+      .attr("fill", d => colors(d.value))
       // no bar at the beginning thus:
-      .attr('height', d => height - y(0)) // always equal to 0
-      .attr('y', d => y(0))
+      .attr("height", d => height - y(0)) // always equal to 0
+      .attr("y", d => y(0))
       .transition()
       .duration(1200)
-      .attr('y', d => y(d.value))
-      .attr('height', d => height - y(d.value))
+      .attr("y", d => y(d.value))
+      .attr("height", d => height - y(d.value))
       .delay((d, i) => i * 100);
+
+    // bars
+    //   .enter()
+    //   .append("rect")
+    //   .attr("x", d => x(d.label))
+    //   .attr("width", x.bandwidth())
+    //   .attr("fill", d => colors(d.value))
+    //   // no bar at the beginning thus:
+    //   .attr("height", d => height - y(0)) // always equal to 0
+    //   .attr("y", d => y(0))
+    //   .merge("circle")
+    //   .transition()
+    //   .duration(1200)
+    //   .attr("y", d => y(d.value))
+    //   .attr("height", d => height - y(d.value))
+    //   .delay((d, i) => i * 100);
   }, [theme, needs]);
 
   useEffect(() => {
