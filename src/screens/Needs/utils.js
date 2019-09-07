@@ -21,6 +21,13 @@ export const drawNeedsChart = ({ needs }) => {
     .append('g')
     .attr('transform', `translate(${margin.left}, ${margin.top})`);
 
+  // color interpolation
+  const colors = d3
+    .scaleLinear()
+    .domain([10, 40, 70, 100])
+    .range(Object.values(theme.chart).reverse())
+    .interpolate(d3.interpolateHcl);
+
   // X axis
   var x = d3
     .scaleBand()
@@ -54,7 +61,7 @@ export const drawNeedsChart = ({ needs }) => {
     .append('rect')
     .attr('x', d => x(d.label))
     .attr('width', x.bandwidth())
-    .attr('fill', '#69b3a2')
+    .attr('fill', d => console.log(d, colors(d.value)) || colors(d.value))
     // no bar at the beginning thus:
     .attr('height', d => height - y(0)) // always equal to 0
     .attr('y', d => y(0));

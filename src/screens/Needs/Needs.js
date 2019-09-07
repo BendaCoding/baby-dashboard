@@ -10,7 +10,7 @@ export const Needs = () => {
   const [needs, setNeeds] = useState([
     { label: 'Hunger', value: 50 },
     { label: 'Thirst', value: 90 },
-    { label: 'Comfort', value: 70 },
+    { label: 'Comfort', value: 5 },
     { label: 'Cleanliness', value: 100 }
   ]);
 
