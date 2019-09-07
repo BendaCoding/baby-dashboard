@@ -68,8 +68,6 @@ export const BarChart = ({ className, id, needs }) => {
       isInitialMount.current = false;
       drawGraph();
     }
-    console.log("update graph");
-    console.log(needs);
 
     // Bars
     const bars = d3
@@ -80,8 +78,10 @@ export const BarChart = ({ className, id, needs }) => {
     // UPDATE old elements present in new data.
     bars
       .transition()
+      .ease(d => d)
       .duration(400)
       .attr("y", d => y(d.value))
+      .attr("fill", d => colors(d.value))
       .attr("height", d => height - y(d.value))
       .delay((d, i) => i * 100);
 

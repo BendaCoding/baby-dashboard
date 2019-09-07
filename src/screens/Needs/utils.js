@@ -22,23 +22,30 @@ export const changeNeed = ({ label, value, needs }) => {
   ];
 };
 
-export const useSetIntervals = ({ changeNeed }) => {
-  useInterval(() => {
-    changeNeed({ label: "Hunger", value: -5 });
-  }, 4000);
+const updateValue = (value, change) => {
+  const calc = value + change;
+  return Math.min(Math.max(calc, 0), 100);
+};
 
-  useInterval(() => {
-    changeNeed({ label: "Thirst", value: -5 });
-  }, 4000);
+const getDecreaseValue = label =>
+  ({
+    Hunger: -0.2,
+    Thirst: -0.5,
+    Comfort: -0.1,
+    Cleanliness: 0,
+    Entertainment: -1.2
+  }[label] || 0);
 
-  useInterval(() => {
-    changeNeed({ label: "Cleanliness", value: -60 });
-  }, 15000);
-  useInterval(() => {
-    changeNeed({ label: "Cleanliness", value: -10 });
-  }, 5000);
+export const useSetIntervals = ({ isRunning, setNeeds, needs }) => {
+  useInterval(
+    () => {
+      const newNeeds = needs.map(({ label, value }) => ({
+        label,
+        value: updateValue(value, getDecreaseValue(label))
+      }));
 
-  useInterval(() => {
-    changeNeed({ label: "Entertainment", value: -0.3 });
-  }, 400);
+      setNeeds(newNeeds);
+    },
+    isRunning ? 400 : null
+  );
 };
