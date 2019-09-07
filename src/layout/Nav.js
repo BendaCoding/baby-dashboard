@@ -15,7 +15,7 @@ export const Nav = () => {
   return (
     <Menu inverted secondary>
       <MenuItem pathname={location.pathname} to="/" title="Needs" />
-      <MenuItem pathname={location.pathname} to="/pie-chart" title="Other" />
+      <MenuItem pathname={location.pathname} to="/code" title="Show Code" />
     </Menu>
   );
 };
