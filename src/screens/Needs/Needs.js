@@ -7,7 +7,7 @@ import { MOMMY_THRESHOLDS } from '@@constants';
 import { GameSettingsContext } from '@@utils';
 import { Buttons } from './Buttons';
 import { Score } from './Score';
-import { useInterval } from '@@hooks/';
+import { useInterval } from '@@hooks';
 
 const emptyGameNeeds = U.getGameNeeds(new Array(5).fill(0));
 const newGameNeeds = U.getGameNeeds([600, 900, 600, 1000, 1000]);
@@ -42,22 +42,26 @@ export const Needs = () => {
 
   return (
     <div>
-      {gameOver && <h3>Gameover !!!</h3>}
-      <Button
-        {...(isRunning ? { negative: true } : { primary: true })}
-        onClick={() => {
-          !isRunning && setNeeds(newGameNeeds);
-          !isRunning && setScore(0);
-          setIsRunning(!isRunning);
-        }}
-      >
-        {isRunning ? 'Call Mommy' : 'Start caring'}
-      </Button>
+      <Flex justifyContent="center">
+        <Box ml={22}>
+          <Button
+            {...(isRunning ? { negative: true } : { primary: true })}
+            onClick={() => {
+              !isRunning && setNeeds(newGameNeeds);
+              !isRunning && setScore(0);
+              setIsRunning(!isRunning);
+            }}
+          >
+            {isRunning ? 'Call Mommy' : 'Start caring'}
+          </Button>
+        </Box>
+      </Flex>
       <Flex alignItems="center">
         <Box my={4}>
           <BarChart width={520} height={450} needs={needs} id="bar-chart" />
         </Box>
         <Box mb={5}>
+          {gameOver && <h3>Gameover !!!</h3>}
           <Score score={score} />
           <Buttons {...{ setNeeds, isRunning, needs }} />
         </Box>
