@@ -15,13 +15,13 @@ export const Pusher = styled.div`
   z-index: 99;
   height: 100%;
   transition: transform 0.5s;
-  transform-origin: 100% 50%;
+  transform-origin: 0 50%;
   transform-style: preserve-3d;
 
   ${({ isOpen }) =>
     isOpen &&
     `
-    transform: rotateY(-10deg);
+    transform: rotateY(10deg);
   `};
 
   &::after {
@@ -50,11 +50,11 @@ export const Content = styled.div`
 
 export const Sidebar = styled.div`
   opacity: 1;
-  transform: translate3d(-100%, 0, 0);
+  transform: translate3d(100%, 0, 0);
   transform-style: preserve-3d;
   position: absolute;
   top: 0;
-  left: 0;
+  right: 0;
   bottom: 0;
   z-index: 100;
   visibility: hidden;

@@ -17,11 +17,6 @@ export const Layout = () => {
     <LayoutContext.Provider value={[showSidebar, toggleSidebar]}>
       <GameSettingsContext.Provider value={[gameSettings, setGameSettings]}>
         <S.Container>
-          <S.Sidebar id="sidebar" isOpen={showSidebar}>
-            <Switch>
-              <Route exact path="/" component={NeedsSidebar} />
-            </Switch>
-          </S.Sidebar>
           <S.Pusher
             onClick={
               showSidebar
@@ -46,6 +41,11 @@ export const Layout = () => {
               </Flex>
             </S.Content>
           </S.Pusher>
+          <S.Sidebar id="sidebar" isOpen={showSidebar}>
+            <Switch>
+              <Route exact path="/" component={NeedsSidebar} />
+            </Switch>
+          </S.Sidebar>
         </S.Container>
       </GameSettingsContext.Provider>
     </LayoutContext.Provider>

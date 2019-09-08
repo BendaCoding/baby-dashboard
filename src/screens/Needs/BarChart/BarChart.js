@@ -2,7 +2,7 @@ import React, { useRef, useContext, useEffect } from 'react';
 import * as d3 from 'd3';
 import { useTheme } from '@@hooks';
 import { GameSettingsContext } from '@@utils';
-import { MOMMY_THRESHOLDS } from '@@constants';
+import { MOMMY_THRESHOLDS, INTERVALS } from '@@constants';
 import * as S from './styled';
 
 const FONT = '14px Lato';
@@ -15,10 +15,10 @@ export const BarChart = ({
   needs
 }) => {
   const theme = useTheme();
-  const isInitialMount = useRef(true);
+  const isInitialRender = useRef(true);
   const [gameSettings] = useContext(GameSettingsContext);
   const threshold = MOMMY_THRESHOLDS[gameSettings.difficulty];
-  console.log('THRE', threshold);
+  const interval = INTERVALS[gameSettings.difficulty];
 
   const margin = { top: 20, right: 30, bottom: 90, left: 70 },
     width = outerWidth - margin.left - margin.right,
@@ -35,6 +35,11 @@ export const BarChart = ({
     .domain([0, 1000])
     .range([height, 0]);
 
+  const yAxis = d3
+    .axisLeft(yScale)
+    .tickValues([threshold, 1000])
+    .tickFormat((d, i) => (d === 1000 ? 'Happy' : 'Moody'));
+
   // color interpolation
   const colors = d3
     .scaleLinear()
@@ -46,38 +51,42 @@ export const BarChart = ({
     /**
      * Draw Graph on initial render
      */
+    const drawGraph = () => {
+      const svg = d3
+        .select('#bar-chart')
+        .attr('width', width + margin.left + margin.right)
+        .attr('height', height + margin.top + margin.bottom)
+        .select('#main');
 
-    const svg = d3
-      .select('#bar-chart')
-      .attr('width', width + margin.left + margin.right)
-      .attr('height', height + margin.top + margin.bottom)
-      .select('#main');
+      // Add X axis
+      svg
+        .append('g')
+        .attr('transform', 'translate(0,' + height + ')')
+        .call(d3.axisBottom(xScale))
+        .attr('class', 'x-axis')
+        .selectAll('text')
+        .attr('transform', 'translate(-10, 5)rotate(-45)')
+        .style('text-anchor', 'end')
+        .style('font', FONT);
 
-    // remove old axis
-    svg.selectAll('.x-axis, .y-axis').remove();
+      // Add Y axis
+      svg
+        .append('g')
+        .call(yAxis)
+        .style('font', FONT)
+        .attr('class', 'y-axis');
+    };
 
-    // X axis
+    if (isInitialRender.current) {
+      drawGraph();
+      isInitialRender.current = false;
+    }
+    const svg = d3.select('#bar-chart #main');
+
     svg
-      .append('g')
-      .attr('transform', 'translate(0,' + height + ')')
-      .call(d3.axisBottom(xScale))
-      .attr('class', 'x-axis')
-      .selectAll('text')
-      .attr('transform', 'translate(-10, 5)rotate(-45)')
-      .style('text-anchor', 'end')
-      .style('font', FONT);
-
-    // Add Y axis
-    svg
-      .append('g')
-      .call(
-        d3
-          .axisLeft(yScale)
-          .tickValues([threshold, 1000])
-          .tickFormat((d, i) => (d === 1000 ? 'Happy' : 'Moody'))
-      )
-      .style('font', FONT)
-      .attr('class', 'y-axis');
+      .select('.y-axis')
+      .transition()
+      .call(yAxis);
 
     // Bars
     const bars = d3
@@ -89,7 +98,7 @@ export const BarChart = ({
     bars
       .transition()
       .ease(d => d)
-      .duration(400)
+      .duration(interval)
       .attr('y', d => yScale(d.value))
       .attr('fill', d => colors(d.value))
       .attr('height', d => height - yScale(d.value))

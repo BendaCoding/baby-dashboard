@@ -1,5 +1,5 @@
 import { useInterval } from '@@hooks/';
-import { ATTRIBUTES, MOMMY_THRESHOLDS } from '@@constants';
+import { ATTRIBUTES, INTERVALS, MOMMY_THRESHOLDS } from '@@constants';
 
 const randomNumberBetween = (min, max) =>
   Math.floor(Math.random() * (max - min + 1) + min);
@@ -21,7 +21,6 @@ const getDecreaseValue = attr =>
   }[attr] || 0);
 
 export const useSetIntervals = ({ isRunning, setNeeds, gameSettings }) => {
-  console.log('run');
   useInterval(
     () => {
       setNeeds(currentNeeds => {
@@ -32,6 +31,6 @@ export const useSetIntervals = ({ isRunning, setNeeds, gameSettings }) => {
         return newNeeds;
       });
     },
-    isRunning ? 400 : null
+    isRunning ? INTERVALS[gameSettings.difficulty] : null
   );
 };
