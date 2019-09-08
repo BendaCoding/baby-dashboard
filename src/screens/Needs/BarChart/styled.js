@@ -1,12 +1,10 @@
 import styled from 'styled-components';
 
-export const SVG = styled.svg`
-  font: '14px Lato';
+export const AnimatedRect = styled.rect`
+  transition: height 250ms ${({ theme }) => theme.transitions.easeInOutQuad};
 `;
 
 export const Text = styled.text`
-  color: white;
-  fill: white;
-  font-size: 12px;
-  font-weight: 200;
+  fill: ${({ theme }) => theme.dimmed};
+  font: '14px Lato';
 `;

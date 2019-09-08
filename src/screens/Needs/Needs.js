@@ -1,66 +1,55 @@
-import React, { useState, useContext } from "react";
-import { Button } from "semantic-ui-react";
-import { LayoutContext } from "@@utils";
-import { Flex, Box } from "rebass";
-import * as U from "./utils";
-import { BarChart } from "./BarChart";
-import { CooldownButton } from "./CooldownButton";
+import React, { useState, useContext, useRef } from 'react';
+import { Button } from 'semantic-ui-react';
+import { Flex, Box } from 'rebass';
+import * as U from './utils';
+import { BarChart } from './BarChart';
+import { ATTRIBUTES, MOMMY_THRESHOLDS } from '@@constants';
+import { GameSettingsContext } from '@@utils';
+import { Buttons } from './Buttons';
 
 export const Needs = () => {
-  const { toggleSidebar } = useContext(LayoutContext);
   const [isRunning, setIsRunning] = useState(false);
   const [gameOver, setGameOver] = useState(false);
+  const [gameSettings] = useContext(GameSettingsContext);
 
   const [needs, setNeeds] = useState([
-    { label: "Hunger", value: 50 },
-    { label: "Thirst", value: 90 },
-    { label: "Comfort", value: 5 },
-    { label: "Cleanliness", value: 100 },
-    { label: "Entertainment", value: 100 }
+    { label: 'Hungry', attr: ATTRIBUTES.HUNGRY, value: 500 },
+    { label: 'Thirsty', attr: ATTRIBUTES.THIRSTY, value: 900 },
+    { label: 'Tired', attr: ATTRIBUTES.TIRED, value: 600 },
+    { label: 'Dirty', attr: ATTRIBUTES.DIRTY, value: 1000 },
+    { label: 'Bored', attr: ATTRIBUTES.BORED, value: 1000 }
   ]);
 
-  U.useSetIntervals({ setNeeds, needs, isRunning });
+  U.useSetIntervals({ setNeeds, isRunning, gameSettings });
 
-  const createOnClick = ({ label, value }) => () => {
-    setNeeds(U.changeNeed({ label, value, needs }));
-  };
-
-  if (isRunning && needs.some(({ value }) => value <= 0)) {
+  /**
+   * End game if a value drops below the mommy threshold
+   */
+  if (
+    isRunning &&
+    needs.some(
+      ({ value }) => value <= MOMMY_THRESHOLDS[gameSettings.difficulty]
+    )
+  ) {
     setGameOver(true);
     setIsRunning(false);
   }
 
   return (
     <>
-      <h2>Needs</h2>
       {gameOver && <h3>Gameover !!!</h3>}
-      <Button onClick={() => toggleSidebar(true)}>Customize</Button>
       <Button onClick={() => setIsRunning(!isRunning)}>
-        {isRunning ? "stop" : "Ready !"}
+        {isRunning ? 'Stop' : 'Start'}
       </Button>
-      <Box my={4}>
-        <BarChart needs={needs} id="bar-chart" />
-        {/* <BarChart data={needs} /> */}
-      </Box>
-      <Box mb={5}>
-        <Flex>
-          <h2>Feed:</h2>
-          <CooldownButton
-            cooldown={15000}
-            disabled={!isRunning}
-            onClick={createOnClick({ label: "Hunger", value: 15 })}
-          >
-            Banana
-          </CooldownButton>
-          <CooldownButton
-            onClick={createOnClick({ label: "Hunger", value: 40 })}
-            cooldown={35000}
-            disabled={!isRunning}
-          >
-            Babymilk
-          </CooldownButton>
-        </Flex>
-      </Box>
+      <Flex alignItems="center">
+        <Box my={4}>
+          <BarChart width={520} height={450} needs={needs} id="bar-chart" />
+          {/* <BarChart data={needs} /> */}
+        </Box>
+        <Box mb={5}>
+          <Buttons {...{ setNeeds, isRunning, needs }} />
+        </Box>
+      </Flex>
     </>
   );
 };

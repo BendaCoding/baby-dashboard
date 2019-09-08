@@ -1,0 +1,19 @@
+export const ATTRIBUTES = {
+  HUNGRY: 'HUNGRY',
+  THIRSTY: 'THIRSTY',
+  DIRTY: 'DIRTY',
+  BORED: 'BORED',
+  TIRED: 'TIRED'
+};
+
+export const DIFFICULTIES = {
+  EASY: 'EASY',
+  MEDIUM: 'MEDIUM',
+  HARD: 'HARD'
+};
+
+export const MOMMY_THRESHOLDS = {
+  [DIFFICULTIES.EASY]: 150,
+  [DIFFICULTIES.MEDIUM]: 250,
+  [DIFFICULTIES.HARD]: 400
+};

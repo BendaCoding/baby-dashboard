@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Button } from "semantic-ui-react";
-import * as U from "../utils";
 import { useInterval } from "@@hooks";
 
 export const CooldownButton = ({
@@ -14,7 +13,6 @@ export const CooldownButton = ({
 
   useInterval(
     () => {
-      console.log("interval", time);
       setTime(time + 100 >= cooldown ? false : time + 100);
     },
     time !== false ? 100 : null
@@ -32,6 +30,7 @@ export const CooldownButton = ({
       disabled={disabled || time !== false}
       onClick={clickHandle}
       {...rest}
+      style={{ width: "160px" }}
     >
       {children}
     </Button>

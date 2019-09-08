@@ -7,7 +7,8 @@
       "@@hooks/*": ["./hooks/*", "./hooks"],
       "@@images/*": ["./images/*", "./images"],
       "@@screens/*": ["./screens/*", "./screens"],
-      "@@utils/*": ["./utils/*", "./utils"]
+      "@@utils/*": ["./utils/*", "./utils"],
+      "@@constants": ["./constants.js"]
     }
   }
 }
