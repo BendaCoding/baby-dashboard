@@ -1,24 +1,29 @@
-import React, { useState, useContext, useRef } from 'react';
+import React, { useState, useContext } from 'react';
 import { Button } from 'semantic-ui-react';
 import { Flex, Box } from 'rebass';
 import * as U from './utils';
 import { BarChart } from './BarChart';
-import { ATTRIBUTES, MOMMY_THRESHOLDS } from '@@constants';
+import { ATTRIBUTES, ATTRIBUTE_LABELS, MOMMY_THRESHOLDS } from '@@constants';
 import { GameSettingsContext } from '@@utils';
 import { Buttons } from './Buttons';
+
+const getGameNeeds = values => [
+  ...Object.values(ATTRIBUTES).map((attr, i) => ({
+    attr,
+    label: ATTRIBUTE_LABELS[attr],
+    value: values[i]
+  }))
+];
+
+const emptyGameNeeds = getGameNeeds(new Array(5).fill(0));
+const newGameNeeds = getGameNeeds([500, 900, 600, 1000, 1000]);
 
 export const Needs = () => {
   const [isRunning, setIsRunning] = useState(false);
   const [gameOver, setGameOver] = useState(false);
   const [gameSettings] = useContext(GameSettingsContext);
 
-  const [needs, setNeeds] = useState([
-    { label: 'Hungry', attr: ATTRIBUTES.HUNGRY, value: 500 },
-    { label: 'Thirsty', attr: ATTRIBUTES.THIRSTY, value: 900 },
-    { label: 'Tired', attr: ATTRIBUTES.TIRED, value: 600 },
-    { label: 'Dirty', attr: ATTRIBUTES.DIRTY, value: 1000 },
-    { label: 'Bored', attr: ATTRIBUTES.BORED, value: 1000 }
-  ]);
+  const [needs, setNeeds] = useState(emptyGameNeeds);
 
   U.useSetIntervals({ setNeeds, isRunning, gameSettings });
 
@@ -38,8 +43,14 @@ export const Needs = () => {
   return (
     <>
       {gameOver && <h3>Gameover !!!</h3>}
-      <Button onClick={() => setIsRunning(!isRunning)}>
-        {isRunning ? 'Stop' : 'Start'}
+      <Button
+        {...(isRunning ? { negative: true } : { primary: true })}
+        onClick={() => {
+          setNeeds(newGameNeeds);
+          setIsRunning(!isRunning);
+        }}
+      >
+        {isRunning ? 'Call Mommy' : 'Start caring'}
       </Button>
       <Flex alignItems="center">
         <Box my={4}>

@@ -6,6 +6,14 @@ export const ATTRIBUTES = {
   TIRED: 'TIRED'
 };
 
+export const ATTRIBUTE_LABELS = {
+  [ATTRIBUTES.HUNGRY]: 'Hungry',
+  [ATTRIBUTES.THIRSTY]: 'Thirsty',
+  [ATTRIBUTES.TIRED]: 'Tired',
+  [ATTRIBUTES.DIRTY]: 'Dirty',
+  [ATTRIBUTES.BORED]: 'Bored'
+};
+
 export const DIFFICULTIES = {
   EASY: 'EASY',
   MEDIUM: 'MEDIUM',
