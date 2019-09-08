@@ -1,5 +1,18 @@
 import { useInterval } from '@@hooks/';
-import { ATTRIBUTES, INTERVALS, MOMMY_THRESHOLDS } from '@@constants';
+import {
+  ATTRIBUTES,
+  ATTRIBUTE_LABELS,
+  INTERVALS,
+  MOMMY_THRESHOLDS
+} from '@@constants';
+
+export const getGameNeeds = values => [
+  ...Object.values(ATTRIBUTES).map((attr, i) => ({
+    attr,
+    label: ATTRIBUTE_LABELS[attr],
+    value: values[i]
+  }))
+];
 
 const randomNumberBetween = (min, max) =>
   Math.floor(Math.random() * (max - min + 1) + min);

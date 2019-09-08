@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import baby from '@@images/baby.jpg';
+import { animated } from 'react-spring';
 
 export const Container = styled.div`
   perspective: 1500px;
@@ -83,4 +84,17 @@ export const BabyAvatar = styled.img.attrs({ src: baby })`
 
 export const Headline = styled.h1`
   margin: 0;
+`;
+
+export const RouteContainer = styled.div`
+  position: relative;
+  width: 100%;
+`;
+
+export const AnimatedRoute = styled(animated.div)`
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
 `;
