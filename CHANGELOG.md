@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.2](https://github.com/BendaCoding/baby-dashboard/compare/v0.1.1...v0.1.2) (2019-09-09)
+
+
+### Bug Fixes
+
+* rename project ([b588d33](https://github.com/BendaCoding/baby-dashboard/commit/b588d33))
+* screen adjustments ([96606f9](https://github.com/BendaCoding/baby-dashboard/commit/96606f9))
+
 ### 0.1.1 (2019-09-09)
 
 
