@@ -15,8 +15,9 @@ export const NeedsSidebar = () => {
 
   return (
     <>
-      <Box mt={3}>
+      <Box mt={3} p={3}>
         <h3>Customize Settings</h3>
+        <Box mb={2}>Difficulty</Box>
         <Select
           value={gameSettings.difficulty}
           onChange={(e, { value }) =>
