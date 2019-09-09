@@ -7,13 +7,7 @@ import * as S from './styled';
 
 const FONT = '14px Lato';
 
-export const BarChart = ({
-  width: outerWidth,
-  height: outerHeight,
-  className,
-  id,
-  needs
-}) => {
+export const BarChart = ({ width: outerWidth, height: outerHeight, className, id, needs }) => {
   const theme = useTheme();
   const isInitialRender = useRef(true);
   const [gameSettings] = useContext(GameSettingsContext);
@@ -120,41 +114,13 @@ export const BarChart = ({
       .attr('y', d => yScale(d.value))
       .attr('height', d => height - yScale(d.value))
       .delay((d, i) => i * 100);
-  }, [
-    theme,
-    needs,
-    threshold,
-    xScale,
-    yScale,
-    colors,
-    height,
-    margin,
-    interval,
-    width,
-    yAxis
-  ]);
+  }, [theme, needs, threshold, xScale, yScale, colors, height, margin, interval, width, yAxis]);
 
   return (
-    <svg
-      width={outerWidth}
-      height={outerHeight}
-      {...(className && { className })}
-      {...(id && { id })}
-    >
+    <svg width={outerWidth} height={outerHeight} {...(className && { className })} {...(id && { id })}>
       <defs>
-        <pattern
-          id="stripes"
-          width="8"
-          height="8"
-          patternTransform="rotate(45)"
-          patternUnits="userSpaceOnUse"
-        >
-          <rect
-            width="1"
-            height="8"
-            transform="translate(0,0)"
-            fill="#ffffff44"
-          ></rect>
+        <pattern id="stripes" width="8" height="8" patternTransform="rotate(45)" patternUnits="userSpaceOnUse">
+          <rect width="1" height="8" transform="translate(0,0)" fill="#ffffff44"></rect>
         </pattern>
       </defs>
       <g transform={`translate(${margin.left}, ${margin.top})`} id="main">

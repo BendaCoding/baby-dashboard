@@ -2,12 +2,14 @@
   "name": "baby-dashboard",
   "version": "0.1.1",
   "private": true,
+  "author": "Jan Rahtkens <Jan@stsstudios.de>",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "release": "standard-version"
+    "release": "standard-version",
+    "prettier": "prettier ."
   },
   "dependencies": {
     "d3": "^5.11.0",
@@ -39,6 +41,7 @@
   },
   "devDependencies": {
     "cra-alias": "^4.13.19",
+    "prettier": "^1.18.2",
     "standard-version": "^7.0.0"
   }
 }

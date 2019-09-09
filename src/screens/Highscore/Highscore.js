@@ -1,5 +1,10 @@
 import React from 'react';
 
 export const Highscore = () => {
-  return <div>High score</div>;
+  return (
+    <div>
+      <h2>High score</h2>
+      coming soon..
+    </div>
+  );
 };

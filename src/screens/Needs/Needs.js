@@ -8,6 +8,7 @@ import { GameSettingsContext } from '../../utils';
 import { Buttons } from './Buttons';
 import { Score } from './Score';
 import { useInterval } from '../../hooks';
+import { useSpring, animated } from 'react-spring';
 
 const emptyGameNeeds = U.getGameNeeds(new Array(5).fill(0));
 const newGameNeeds = U.getGameNeeds([600, 900, 600, 1000, 1000]);
@@ -19,7 +20,7 @@ export const Needs = () => {
   const [score, setScore] = useState(0);
   const [needs, setNeeds] = useState(emptyGameNeeds);
 
-  U.useSetIntervals({ setNeeds, isRunning, gameSettings });
+  U.useDegradeAttributes({ setNeeds, isRunning, gameSettings });
 
   useInterval(
     () => {
@@ -27,31 +28,33 @@ export const Needs = () => {
     },
     isRunning ? 100 : null
   );
+
+  const fade = useSpring({ opacity: gameOver ? 1 : 0 });
   /**
    * End game if a value drops below the mommy threshold
    */
-  if (
-    isRunning &&
-    needs.some(
-      ({ value }) => value <= MOMMY_THRESHOLDS[gameSettings.difficulty]
-    )
-  ) {
+  if (isRunning && needs.some(({ value }) => value <= MOMMY_THRESHOLDS[gameSettings.difficulty])) {
     setGameOver(true);
     setIsRunning(false);
   }
+
+  const onStartStop = () => {
+    if (!isRunning) {
+      setNeeds(newGameNeeds);
+      setScore(0);
+      setGameOver(false);
+    } else {
+      setGameOver(true);
+    }
+
+    setIsRunning(!isRunning);
+  };
 
   return (
     <div>
       <Flex justifyContent="center">
         <Box ml={22}>
-          <Button
-            {...(isRunning ? { negative: true } : { primary: true })}
-            onClick={() => {
-              !isRunning && setNeeds(newGameNeeds);
-              !isRunning && setScore(0);
-              setIsRunning(!isRunning);
-            }}
-          >
+          <Button {...(isRunning ? { negative: true } : { primary: true })} onClick={onStartStop}>
             {isRunning ? 'Call Mommy' : 'Start caring'}
           </Button>
         </Box>
@@ -61,7 +64,9 @@ export const Needs = () => {
           <BarChart width={520} height={450} needs={needs} id="bar-chart" />
         </Box>
         <Box mb={5}>
-          {gameOver && <h3>Gameover !!!</h3>}
+          <Box pl={3}>
+            <animated.div style={fade}>Gameover</animated.div>
+          </Box>
           <Score score={score} />
           <Buttons {...{ setNeeds, isRunning, needs }} />
         </Box>

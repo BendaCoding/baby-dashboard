@@ -33,7 +33,7 @@ const getDecreaseValue = attr =>
     [ATTRIBUTES.BORED]: Math.random() > 0.65 ? -12 : 0
   }[attr] || 0);
 
-export const useSetIntervals = ({ isRunning, setNeeds, gameSettings }) => {
+export const useDegradeAttributes = ({ isRunning, setNeeds, gameSettings }) => {
   useInterval(
     () => {
       setNeeds(currentNeeds => {
