@@ -1,10 +1,10 @@
-import { useInterval } from '@@hooks/';
+import { useInterval } from '../../hooks';
 import {
   ATTRIBUTES,
   ATTRIBUTE_LABELS,
   INTERVALS,
   MOMMY_THRESHOLDS
-} from '@@constants';
+} from '../../constants';
 
 export const getGameNeeds = values => [
   ...Object.values(ATTRIBUTES).map((attr, i) => ({

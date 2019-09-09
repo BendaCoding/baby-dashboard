@@ -3,11 +3,11 @@ import { Button } from 'semantic-ui-react';
 import { Flex, Box } from 'rebass';
 import * as U from './utils';
 import { BarChart } from './BarChart';
-import { MOMMY_THRESHOLDS } from '@@constants';
-import { GameSettingsContext } from '@@utils';
+import { MOMMY_THRESHOLDS } from '../../constants';
+import { GameSettingsContext } from '../../utils';
 import { Buttons } from './Buttons';
 import { Score } from './Score';
-import { useInterval } from '@@hooks';
+import { useInterval } from '../../hooks';
 
 const emptyGameNeeds = U.getGameNeeds(new Array(5).fill(0));
 const newGameNeeds = U.getGameNeeds([600, 900, 600, 1000, 1000]);

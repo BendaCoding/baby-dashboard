@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import { Button } from "semantic-ui-react";
-import { useInterval } from "@@hooks";
+import React, { useState } from 'react';
+import { Button } from 'semantic-ui-react';
+import { useInterval } from '../../hooks';
 
 export const CooldownButton = ({
   children,
@@ -30,7 +30,7 @@ export const CooldownButton = ({
       disabled={disabled || time !== false}
       onClick={clickHandle}
       {...rest}
-      style={{ width: "160px" }}
+      style={{ width: '160px' }}
     >
       {children}
     </Button>

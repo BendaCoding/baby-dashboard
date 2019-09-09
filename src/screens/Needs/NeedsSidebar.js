@@ -1,8 +1,8 @@
 import React, { useContext } from 'react';
-import { GameSettingsContext } from '@@utils';
+import { GameSettingsContext } from '../../utils';
 import { Box } from 'rebass';
 import { Select } from 'semantic-ui-react';
-import { DIFFICULTIES } from '@@constants';
+import { DIFFICULTIES } from '../../constants';
 
 const difficulties = [
   { key: 1, value: DIFFICULTIES.EASY, text: 'Easy' },

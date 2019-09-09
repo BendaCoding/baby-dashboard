@@ -1,8 +1,5 @@
-const randomNumberBetween = (min, max) => {
-  const a = Math.floor(Math.random() * (max - min + 1) + min);
-  console.log(a);
-  return a;
-};
+const randomNumberBetween = (min, max) =>
+  Math.floor(Math.random() * (max - min + 1) + min);
 
 export const updateNeeds = (change, needs) => {
   const arr = !Array.isArray(change) ? [change] : change;

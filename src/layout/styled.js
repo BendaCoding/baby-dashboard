@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import baby from '@@images/baby.jpg';
+import baby from '../images/baby.jpg';
 import { animated } from 'react-spring';
 
 export const Container = styled.div`

@@ -1,8 +1,8 @@
 import React, { useRef, useContext, useEffect } from 'react';
 import * as d3 from 'd3';
-import { useTheme } from '@@hooks';
-import { GameSettingsContext } from '@@utils';
-import { MOMMY_THRESHOLDS, INTERVALS } from '@@constants';
+import { useTheme } from '../../../hooks';
+import { GameSettingsContext } from '../../../utils';
+import { MOMMY_THRESHOLDS, INTERVALS } from '../../../constants';
 import * as S from './styled';
 
 const FONT = '14px Lato';
@@ -120,7 +120,19 @@ export const BarChart = ({
       .attr('y', d => yScale(d.value))
       .attr('height', d => height - yScale(d.value))
       .delay((d, i) => i * 100);
-  }, [theme, needs, threshold, xScale, yScale, colors, height]);
+  }, [
+    theme,
+    needs,
+    threshold,
+    xScale,
+    yScale,
+    colors,
+    height,
+    margin,
+    interval,
+    width,
+    yAxis
+  ]);
 
   return (
     <svg

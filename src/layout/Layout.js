@@ -3,11 +3,11 @@ import { Flex } from 'rebass';
 import { Switch, Route } from 'react-router-dom';
 import { Nav } from './Nav';
 import * as S from './styled';
-import { LayoutContext, GameSettingsContext } from '@@utils';
-import { Needs, NeedsSidebar, Highscore } from '@@screens';
-import { DIFFICULTIES } from '@@constants';
+import { LayoutContext, GameSettingsContext } from '../utils';
+import { Needs, NeedsSidebar, Highscore } from '../screens';
+import { DIFFICULTIES } from '../constants';
 import { __RouterContext } from 'react-router-dom';
-import { animated, useTransition } from 'react-spring';
+import { useTransition } from 'react-spring';
 
 export const Layout = () => {
   const { location } = useContext(__RouterContext);
