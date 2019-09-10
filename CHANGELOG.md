@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.3](https://github.com/BendaCoding/baby-dashboard/compare/v0.1.2...v0.1.3) (2019-09-10)
+
+
+### Bug Fixes
+
+* fix color mapping for linear graph ([1d7e6fe](https://github.com/BendaCoding/baby-dashboard/commit/1d7e6fe))
+
+
+### Features
+
+* add warning label on linegraph for empty data ([9c6e1fd](https://github.com/BendaCoding/baby-dashboard/commit/9c6e1fd))
+* implement analysis graph ([bc5e9fc](https://github.com/BendaCoding/baby-dashboard/commit/bc5e9fc))
+* log game data ([a8248d9](https://github.com/BendaCoding/baby-dashboard/commit/a8248d9))
+* toggle lines to hide or show on line graph ([cd38396](https://github.com/BendaCoding/baby-dashboard/commit/cd38396))
+
 ### [0.1.2](https://github.com/BendaCoding/baby-dashboard/compare/v0.1.1...v0.1.2) (2019-09-09)
 
 
