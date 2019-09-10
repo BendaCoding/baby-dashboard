@@ -1,1 +1,0 @@
-export { Highscore } from './Highscore';

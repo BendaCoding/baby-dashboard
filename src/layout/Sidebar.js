@@ -1,8 +1,8 @@
 import React, { useContext } from 'react';
-import { GameSettingsContext } from '../../utils';
 import { Box } from 'rebass';
 import { Select } from 'semantic-ui-react';
-import { DIFFICULTIES } from '../../constants';
+import { GameSettingsContext } from '../utils';
+import { DIFFICULTIES } from '../constants';
 
 const difficulties = [
   { key: 1, value: DIFFICULTIES.EASY, text: 'Easy' },
@@ -10,7 +10,7 @@ const difficulties = [
   { key: 3, value: DIFFICULTIES.HARD, text: 'Hard' }
 ];
 
-export const NeedsSidebar = () => {
+export const Sidebar = () => {
   const [gameSettings, setGameSettings] = useContext(GameSettingsContext);
 
   return (
@@ -20,9 +20,7 @@ export const NeedsSidebar = () => {
         <Box mb={2}>Difficulty</Box>
         <Select
           value={gameSettings.difficulty}
-          onChange={(e, { value }) =>
-            setGameSettings(settings => ({ ...settings, difficulty: value }))
-          }
+          onChange={(e, { value }) => setGameSettings(settings => ({ ...settings, difficulty: value }))}
           options={difficulties}
           label="Difficulty"
         />

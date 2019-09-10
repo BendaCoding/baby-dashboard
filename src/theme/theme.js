@@ -13,6 +13,13 @@ export const theme = {
     concerned: colors.concerned,
     critical: colors.critical
   },
+  attributes: {
+    HUNGRY: '#d75b66',
+    THIRSTY: '#4d73cb',
+    DIRTY: '#f1ba48',
+    BORED: '#bd8a44',
+    TIRED: '#bfafa0'
+  },
   dimmed: colors.dimmed,
   transitions: {
     easeInOutQuad: 'cubic-bezier(0.455, 0.03, 0.515, 0.955)'

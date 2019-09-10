@@ -31,3 +31,5 @@ export const INTERVALS = {
   [DIFFICULTIES.MEDIUM]: 300,
   [DIFFICULTIES.HARD]: 200
 };
+
+export const EMPTY_GAME_DATA_SET = Object.values(ATTRIBUTES).reduce((acc, item) => ({ ...acc, [item]: [] }), {});

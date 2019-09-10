@@ -17,16 +17,8 @@ export const Nav = () => {
   return (
     <Menu inverted secondary>
       <MenuItem pathname={location.pathname} to="/" title="Dashboard" />
-      <MenuItem
-        pathname={location.pathname}
-        to="/highscore"
-        title="Highscore"
-      />
-      <Menu.Item
-        active={showSidebar}
-        name="Customize"
-        onClick={() => toggleSidebar(!showSidebar)}
-      >
+      <MenuItem pathname={location.pathname} to="/analytics" title="Analytics" />
+      <Menu.Item active={showSidebar} name="Customize" onClick={() => toggleSidebar(!showSidebar)}>
         Customize
       </Menu.Item>
     </Menu>

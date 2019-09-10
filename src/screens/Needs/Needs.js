@@ -42,7 +42,7 @@ export const Needs = () => {
   const onStartStop = () => {
     if (!isRunning) {
       setNeeds(newGameNeeds);
-      setGameData([newGameNeeds]);
+      setGameData(U.addGameDataSet(newGameNeeds));
       setScore(0);
       setGameOver(false);
     } else {
