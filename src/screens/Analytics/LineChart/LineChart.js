@@ -54,14 +54,6 @@ export const LineChart = ({
     const yAxis = main.append('g').call(d3.axisLeft(yScale));
 
     /**
-     * Color Palette
-     */
-    const color = d3
-      .scaleOrdinal()
-      .domain([0, 4])
-      .range(colors);
-
-    /**
      * Draw Mommy box
      */
     main
@@ -83,7 +75,7 @@ export const LineChart = ({
       .enter()
       .append('path')
       .attr('fill', 'none')
-      .attr('stroke', (d, index) => color(index))
+      .attr('stroke', (d, index) => colors[index])
       .attr('stroke-width', 1.5)
       .attr('stroke-linecap', 'round')
       .attr('class', 'line')

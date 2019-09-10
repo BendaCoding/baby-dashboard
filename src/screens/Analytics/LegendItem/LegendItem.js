@@ -22,14 +22,11 @@ const Span = styled.span`
   ${({ active }) => !active && `color: #999`};
 `;
 
-export const LegendItem = ({ attr, onClick, active }) => {
-  console.log(active);
-  return (
-    <Wrap mb={3} onClick={onClick}>
-      <svg style={{ marginTop: 4, marginRight: 5 }} width={12} height={12}>
-        <Circle attr={attr} />
-      </svg>
-      <Span active={active}>{ATTRIBUTE_LABELS[attr]}</Span>
-    </Wrap>
-  );
-};
+export const LegendItem = ({ attr, onClick, active }) => (
+  <Wrap mb={3} onClick={onClick}>
+    <svg style={{ marginTop: 4, marginRight: 5 }} width={12} height={12}>
+      <Circle attr={attr} />
+    </svg>
+    <Span active={active}>{ATTRIBUTE_LABELS[attr]}</Span>
+  </Wrap>
+);

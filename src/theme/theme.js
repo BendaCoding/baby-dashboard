@@ -16,9 +16,9 @@ export const theme = {
   attributes: {
     HUNGRY: '#d75b66',
     THIRSTY: '#4d73cb',
-    DIRTY: '#f1ba48',
-    BORED: '#bd8a44',
-    TIRED: '#bfafa0'
+    DIRTY: '#bd8a44',
+    BORED: '#f1ba48',
+    TIRED: '#F78AE0'
   },
   dimmed: colors.dimmed,
   transitions: {

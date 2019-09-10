@@ -22,7 +22,7 @@ export const Analytics = () => {
   // };
 
   const makeToggleLegendClick = attr => () => setVisibleAttributes(prev => ({ ...prev, [attr]: !prev[attr] }));
-  console.log(visibleAttributes);
+
   return (
     <div>
       <h2>Analytics</h2>
@@ -34,7 +34,6 @@ export const Analytics = () => {
         </Box>
         <LineChart data={gameData} {...{ threshold, visibleAttributes }} />
       </Flex>
-      {JSON.stringify(gameData)}
     </div>
   );
 };
