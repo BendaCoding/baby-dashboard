@@ -4,7 +4,7 @@ import { Flex, Box } from 'rebass';
 import * as U from './utils';
 import { BarChart } from './BarChart';
 import { MOMMY_THRESHOLDS } from '../../constants';
-import { GameSettingsContext } from '../../utils';
+import { GameSettingsContext, GameDataContext } from '../../utils';
 import { Buttons } from './Buttons';
 import { Score } from './Score';
 import { useInterval } from '../../hooks';
@@ -17,6 +17,7 @@ export const Needs = () => {
   const [isRunning, setIsRunning] = useState(false);
   const [gameOver, setGameOver] = useState(false);
   const [gameSettings] = useContext(GameSettingsContext);
+  const [, setGameData] = useContext(GameDataContext);
   const [score, setScore] = useState(0);
   const [needs, setNeeds] = useState(emptyGameNeeds);
 
@@ -41,6 +42,7 @@ export const Needs = () => {
   const onStartStop = () => {
     if (!isRunning) {
       setNeeds(newGameNeeds);
+      setGameData([newGameNeeds]);
       setScore(0);
       setGameOver(false);
     } else {

@@ -1,1 +1,1 @@
-export { LayoutContext, GameSettingsContext } from "./Context";
+export { LayoutContext, GameSettingsContext, GameDataContext } from './Context';
