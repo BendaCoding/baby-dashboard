@@ -34,6 +34,7 @@ export const Analytics = () => {
         </Box>
         <LineChart data={gameData} {...{ threshold, visibleAttributes }} />
       </Flex>
+      {JSON.stringify(gameData)}
     </div>
   );
 };

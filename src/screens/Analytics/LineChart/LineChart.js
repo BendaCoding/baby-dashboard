@@ -18,6 +18,7 @@ export const LineChart = ({
 
   const theme = useTheme();
   const colors = useMemo(() => Object.values(theme.attributes), [theme]);
+  const arrVisibleAttributes = Object.values(visibleAttributes);
 
   useEffect(() => {
     const dataCount = data[ATTRIBUTES.HUNGRY].length;
@@ -39,7 +40,7 @@ export const LineChart = ({
 
     const xScale = d3
       .scaleLinear()
-      .domain([0, dataCount])
+      .domain([0, dataCount - 1])
       .range([0, width]);
     const xAxis = main
       .append('g')
@@ -83,14 +84,15 @@ export const LineChart = ({
       .append('path')
       .attr('fill', 'none')
       .attr('stroke', (d, index) => color(index))
-      .attr('stroke-width', (d, index) => (Object.values(visibleAttributes)[index] ? 1.5 : 0))
+      .attr('stroke-width', 1.5)
       .attr('stroke-linecap', 'round')
       .attr('class', 'line')
+      .style('opacity', (d, index) => (Object.values(arrVisibleAttributes)[index] ? 1 : 0))
       .attr(
         'd',
         d3
           .line()
-          .curve(d3.curveCatmullRom)
+          .curve(d3.curveMonotoneX)
           .x((d, index) => xScale(index))
           .y(d => yScale(d))
       );
