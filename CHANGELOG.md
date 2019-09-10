@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.0.1](https://github.com/BendaCoding/baby-dashboard/compare/v1.0.0...v1.0.1) (2019-09-10)
+
+
+### Bug Fixes
+
+* improve line chart ticks ([abb6727](https://github.com/BendaCoding/baby-dashboard/commit/abb6727))
+
 ## [1.0.0](https://github.com/BendaCoding/baby-dashboard/compare/v0.1.3...v1.0.0) (2019-09-10)
 
 ### [0.1.3](https://github.com/BendaCoding/baby-dashboard/compare/v0.1.2...v0.1.3) (2019-09-10)
