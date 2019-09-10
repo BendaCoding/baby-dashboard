@@ -3,6 +3,8 @@ import * as d3 from 'd3';
 import { ATTRIBUTES, ATTRIBUTE_LABELS } from '../../../constants';
 import { useTheme } from '../../../hooks';
 
+const FONT = '14px Lato';
+
 export const LineChart = ({
   data,
   width: outerWidth = 700,
@@ -10,9 +12,10 @@ export const LineChart = ({
   id = 'line-chart',
   className = '',
   threshold,
+  interval,
   visibleAttributes
 }) => {
-  const margin = { top: 20, right: 20, bottom: 90, left: 60 };
+  const margin = { top: 20, right: 20, bottom: 90, left: 80 };
   const width = outerWidth - margin.left - margin.right;
   const height = outerHeight - margin.top - margin.bottom;
 
@@ -23,8 +26,19 @@ export const LineChart = ({
   useEffect(() => {
     const dataCount = data[ATTRIBUTES.HUNGRY].length;
     const dataAsArray = Object.values(data);
+    const timespan = dataCount * interval;
 
     d3.selectAll(`#${id} > *:not(defs)`).remove();
+
+    const getTickFormat = (d, tickIndex) => {
+      const seconds = (timespan * tickIndex) / 10 / 1000;
+
+      if (timespan > 120000) {
+        return `${parseFloat((seconds / 60).toFixed(1))}m`;
+      }
+
+      return `${parseFloat(seconds.toFixed(1))}s`;
+    };
 
     const svg = d3
       .select(`#${id}`)
@@ -38,20 +52,43 @@ export const LineChart = ({
       .attr('className', 'main')
       .attr('transform', `translate(${margin.left}, ${margin.top})`);
 
+    /**
+     * X Axis
+     */
     const xScale = d3
       .scaleLinear()
       .domain([0, dataCount - 1])
       .range([0, width]);
+
+    const xTicks = xScale.ticks().filter(tick => Number.isInteger(tick));
+
     const xAxis = main
       .append('g')
       .attr('transform', `translate(0, ${height})`)
-      .call(d3.axisBottom(xScale));
+      .call(
+        d3
+          .axisBottom(xScale)
+          .tickValues(xTicks)
+          .tickFormat(getTickFormat)
+      )
+      .style('font', FONT);
 
+    /**
+     * Y Axis
+     */
     const yScale = d3
       .scaleLinear()
       .domain([0, 1000])
       .range([height, 0]);
-    const yAxis = main.append('g').call(d3.axisLeft(yScale));
+    const yAxis = main
+      .append('g')
+      .call(
+        d3
+          .axisLeft(yScale)
+          .tickValues([threshold, 1000])
+          .tickFormat((d, i) => (d === 1000 ? 'Happy' : 'Moody'))
+      )
+      .style('font', FONT);
 
     /**
      * Draw Mommy box
