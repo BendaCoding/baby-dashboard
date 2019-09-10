@@ -2,6 +2,7 @@ import React, { useEffect, useMemo } from 'react';
 import * as d3 from 'd3';
 import { ATTRIBUTES, ATTRIBUTE_LABELS } from '../../../constants';
 import { useTheme } from '../../../hooks';
+import * as U from './utils';
 
 const FONT = '14px Lato';
 
@@ -26,19 +27,9 @@ export const LineChart = ({
   useEffect(() => {
     const dataCount = data[ATTRIBUTES.HUNGRY].length;
     const dataAsArray = Object.values(data);
-    const timespan = dataCount * interval;
+    const timespan = (dataCount - 1) * interval;
 
     d3.selectAll(`#${id} > *:not(defs)`).remove();
-
-    const getTickFormat = (d, tickIndex) => {
-      const seconds = (timespan * tickIndex) / 10 / 1000;
-
-      if (timespan > 120000) {
-        return `${parseFloat((seconds / 60).toFixed(1))}m`;
-      }
-
-      return `${parseFloat(seconds.toFixed(1))}s`;
-    };
 
     const svg = d3
       .select(`#${id}`)
@@ -57,10 +48,8 @@ export const LineChart = ({
      */
     const xScale = d3
       .scaleLinear()
-      .domain([0, dataCount - 1])
+      .domain([0, timespan])
       .range([0, width]);
-
-    const xTicks = xScale.ticks().filter(tick => Number.isInteger(tick));
 
     const xAxis = main
       .append('g')
@@ -68,8 +57,8 @@ export const LineChart = ({
       .call(
         d3
           .axisBottom(xScale)
-          .tickValues(xTicks)
-          .tickFormat(getTickFormat)
+          .tickFormat(U.formatTimespan)
+          .ticks(6)
       )
       .style('font', FONT);
 
@@ -122,7 +111,7 @@ export const LineChart = ({
         d3
           .line()
           .curve(d3.curveMonotoneX)
-          .x((d, index) => xScale(index))
+          .x((d, index) => xScale(index * interval))
           .y(d => yScale(d))
       );
   });
