@@ -67,7 +67,7 @@ export const Needs = () => {
         </Box>
         <Box mb={5}>
           <Box pl={3}>
-            <animated.div style={fade}>Gameover</animated.div>
+            <animated.div style={fade}>Gameover - Mommy had to pitch in</animated.div>
           </Box>
           <Score score={score} />
           <Buttons {...{ setNeeds, isRunning, needs }} />
