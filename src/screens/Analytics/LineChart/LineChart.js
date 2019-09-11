@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo } from 'react';
 import * as d3 from 'd3';
-import { ATTRIBUTES, ATTRIBUTE_LABELS } from '../../../constants';
+import { ATTRIBUTES } from '../../../constants';
 import { useTheme } from '../../../hooks';
 import * as U from './utils';
 
@@ -51,14 +51,14 @@ export const LineChart = ({
       .domain([0, timespan])
       .range([0, width]);
 
-    const xAxis = main
+    main
       .append('g')
       .attr('transform', `translate(0, ${height})`)
       .call(
         d3
           .axisBottom(xScale)
           .tickFormat(U.formatTimespan)
-          .ticks(6)
+          .ticks(dataCount ? 6 : 0)
       )
       .style('font', FONT);
 
@@ -69,7 +69,7 @@ export const LineChart = ({
       .scaleLinear()
       .domain([0, 1000])
       .range([height, 0]);
-    const yAxis = main
+    main
       .append('g')
       .call(
         d3
